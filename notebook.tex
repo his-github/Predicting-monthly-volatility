@@ -1,0 +1,848 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Monthly\_volatility\_report}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{c+ch}{\PYZsh{}!/usr/bin/env python3}
+         \PY{c+c1}{\PYZsh{} \PYZhy{}*\PYZhy{} coding: utf\PYZhy{}8 \PYZhy{}*\PYZhy{}}
+         \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{Created on Mon Apr  1 20:55:40 2019}
+         
+         \PY{l+s+sd}{@author: mu}
+         \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+         
+         
+         
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         
+         \PY{k+kn}{from} \PY{n+nn}{pandas} \PY{k}{import} \PY{n}{Series}\PY{p}{,} \PY{n}{DataFrame}
+         
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{k+kn}{from} \PY{n+nn}{data\PYZus{}clean} \PY{k}{import} \PY{n}{Stock}
+         
+         \PY{k}{def} \PY{n+nf}{loss}\PY{p}{(}\PY{n}{real\PYZus{}v}\PY{p}{,}\PY{n}{model\PYZus{}v}\PY{p}{)}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} Root Mean Square Error}
+                 \PY{n}{RMSE}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{nanmean}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{square}\PY{p}{(}\PY{n}{real\PYZus{}v}\PY{o}{\PYZhy{}}\PY{n}{model\PYZus{}v}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{}Mean Absolute Percent Error}
+                 \PY{n}{MAPE}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{nanmean}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{real\PYZus{}v}\PY{o}{\PYZhy{}}\PY{n}{model\PYZus{}v}\PY{p}{)}\PY{o}{/}\PY{n}{real\PYZus{}v}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{}Mean absolute Error}
+                 \PY{n}{MAE}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{nanmean}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{real\PYZus{}v}\PY{o}{\PYZhy{}}\PY{n}{model\PYZus{}v}\PY{p}{)}\PY{p}{)}
+                 \PY{k}{return} \PY{n}{DataFrame}\PY{p}{(}\PY{p}{[}\PY{n}{RMSE}\PY{p}{,}\PY{n}{MAPE}\PY{p}{,}\PY{n}{MAE}\PY{p}{]}\PY{p}{,}\PY{n}{index}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RMSE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MAPE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MAE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{k}{def} \PY{n+nf}{a}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{x}\PY{p}{,}\PY{n}{derivative}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+             \PY{n}{a}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{reversed}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             \PY{n}{b}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{i}\PY{o}{*}\PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{reversed}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             \PY{k}{if} \PY{n}{derivative}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{a}\PY{o}{*}\PY{p}{(}\PY{n}{n}\PY{o}{*}\PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{+}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{n}\PY{p}{)}\PY{o}{*}\PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{n}{n}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{+}\PY{n}{b}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{n}{n}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{a}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{n}{n}\PY{p}{)}
+             
+         \PY{k}{def} \PY{n+nf}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{target}\PY{p}{,}\PY{n}{hold\PYZus{}out}\PY{p}{,}\PY{n}{rate}\PY{o}{=}\PY{l+m+mf}{0.001}\PY{p}{,}\PY{n}{beta}\PY{o}{=}\PY{l+m+mf}{0.9}\PY{p}{,}\PY{n}{error}\PY{o}{=}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{o}{\PYZhy{}}\PY{l+m+mi}{16}\PY{p}{,}\PY{n}{iteration}\PY{o}{=}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4}\PY{p}{,}\PY{n}{observe}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}x is the trainning set, Y is monthly volatility,d is the day lag used}
+         \PY{l+s+sd}{    use gradient descent to minimize mean square loss}
+         \PY{l+s+sd}{    both X,Y are numpy.ndarray}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{minloss}\PY{o}{=}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{8}
+             \PY{n}{best\PYZus{}mu}\PY{o}{=}\PY{l+m+mi}{0}
+             \PY{n}{day}\PY{o}{=}\PY{l+m+mi}{0}
+             
+             \PY{k}{for} \PY{n}{d} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{63}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{Y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{target}\PY{p}{[}\PY{n}{d}\PY{o}{+}\PY{l+m+mi}{21}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{mu}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mf}{0.1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{n}{A}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{d}\PY{p}{,}\PY{n}{d}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{v2}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{d}\PY{p}{)}\PY{p}{)}
+             
+                 \PY{n}{N}\PY{o}{=}\PY{n}{hold\PYZus{}out}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{v2}\PY{o}{+}\PY{o}{=}\PY{n}{Y}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{*}\PY{n}{X}\PY{p}{[}\PY{n}{i}\PY{p}{:}\PY{n}{i}\PY{o}{+}\PY{n}{d}\PY{p}{]}
+                     \PY{n}{A}\PY{o}{+}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{i}\PY{p}{:}\PY{n}{i}\PY{o}{+}\PY{n}{d}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{i}\PY{p}{:}\PY{n}{i}\PY{o}{+}\PY{n}{d}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{step}\PY{o}{=}\PY{l+m+mi}{0}
+                 \PY{n}{g\PYZus{}mu}\PY{o}{=}\PY{l+m+mf}{0.1}
+             
+                 \PY{n}{update\PYZus{}mu}\PY{o}{=}\PY{l+m+mf}{0.1}
+                 \PY{k}{while} \PY{n}{step}\PY{o}{\PYZlt{}}\PY{n}{iteration} \PY{o+ow}{and} \PY{n}{g\PYZus{}mu}\PY{o}{\PYZgt{}}\PY{n}{error}\PY{p}{:}
+                     \PY{n}{g\PYZus{}mu}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{asscalar}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{v2}\PY{o}{+}\PY{n}{a}\PY{p}{(}\PY{n}{d}\PY{p}{,}\PY{n}{mu}\PY{p}{)}\PY{o}{*}\PY{n}{A}\PY{p}{)}\PY{o}{*}\PY{n}{a}\PY{p}{(}\PY{n}{d}\PY{p}{,}\PY{n}{mu}\PY{p}{,}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+                     \PY{n}{update\PYZus{}mu}\PY{o}{=}\PY{n}{update\PYZus{}mu}\PY{o}{*}\PY{n}{beta}\PY{o}{+}\PY{n}{g\PYZus{}mu}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{beta}\PY{p}{)}
+                     \PY{n}{mu}\PY{o}{\PYZhy{}}\PY{o}{=}\PY{n}{rate}\PY{o}{*}\PY{n}{update\PYZus{}mu}
+                     \PY{n}{step}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+                     \PY{k}{if} \PY{n}{step}\PY{o}{\PYZpc{}}\PY{k}{100}==0 and observe:
+                         \PY{n}{L}\PY{o}{=}\PY{l+m+mi}{0}
+                         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                             \PY{n}{L}\PY{o}{+}\PY{o}{=}\PY{p}{(}\PY{n}{Y}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{asscalar}\PY{p}{(}\PY{n}{a}\PY{p}{(}\PY{n}{d}\PY{p}{,}\PY{n}{mu}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{i}\PY{p}{:}\PY{n}{i}\PY{o}{+}\PY{n}{d}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+                         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mu,gradient,loss}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{mu}\PY{p}{,}\PY{n}{g\PYZus{}mu}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{L}\PY{o}{/}\PY{n}{N}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{Loss\PYZus{}total}\PY{o}{=}\PY{l+m+mi}{0}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{Y}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{if} \PY{n}{i}\PY{o}{\PYZlt{}}\PY{n}{N}\PY{p}{:}
+                         \PY{n}{Loss\PYZus{}total}\PY{o}{+}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{asscalar}\PY{p}{(}\PY{n}{a}\PY{p}{(}\PY{n}{d}\PY{p}{,}\PY{n}{mu}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{i}\PY{p}{:}\PY{n}{i}\PY{o}{+}\PY{n}{d}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{o}{/}\PY{n}{Y}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                     \PY{c+c1}{\PYZsh{} here we put more weight on out\PYZus{}of\PYZus{}sample\PYZus{}loss}
+                     \PY{k}{else}\PY{p}{:}
+                         \PY{n}{Loss\PYZus{}total}\PY{o}{+}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{p}{(}\PY{n}{Y}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{asscalar}\PY{p}{(}\PY{n}{a}\PY{p}{(}\PY{n}{d}\PY{p}{,}\PY{n}{mu}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{i}\PY{p}{:}\PY{n}{i}\PY{o}{+}\PY{n}{d}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n}{Y}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{2}
+                     
+                 \PY{k}{if} \PY{n}{Loss\PYZus{}total}\PY{o}{\PYZlt{}}\PY{n}{minloss}\PY{p}{:}
+                     \PY{n}{best\PYZus{}mu}\PY{p}{,}\PY{n}{day}\PY{p}{,}\PY{n}{minloss}\PY{o}{=}\PY{n}{mu}\PY{p}{,}\PY{n}{d}\PY{p}{,}\PY{n}{Loss\PYZus{}total}
+             \PY{n}{Y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{target}\PY{p}{[}\PY{n}{day}\PY{o}{+}\PY{l+m+mi}{21}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+             \PY{n}{Loss\PYZus{}in\PYZus{}sample}\PY{p}{,}\PY{n}{Loss\PYZus{}out\PYZus{}of\PYZus{}sample}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}
+             \PY{n}{In\PYZus{}sample\PYZus{}fit}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{N}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{In\PYZus{}sample\PYZus{}fit}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{asscalar}\PY{p}{(}\PY{p}{(}\PY{n}{a}\PY{p}{(}\PY{n}{day}\PY{p}{,}\PY{n}{best\PYZus{}mu}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{i}\PY{p}{:}\PY{n}{i}\PY{o}{+}\PY{n}{day}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{p}{)}
+             \PY{n}{Loss\PYZus{}in\PYZus{}sample}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{square}\PY{p}{(}\PY{n}{Y}\PY{p}{[}\PY{p}{:}\PY{n}{N}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{In\PYZus{}sample\PYZus{}fit}\PY{p}{)}\PY{p}{)}
+             \PY{n}{RMSE\PYZus{}in\PYZus{}sample}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{Loss\PYZus{}in\PYZus{}sample}\PY{o}{/}\PY{n}{N}\PY{p}{)}
+             
+             
+             \PY{n}{num\PYZus{}hold\PYZus{}out}\PY{o}{=}\PY{n+nb}{len}\PY{p}{(}\PY{n}{Y}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{N}
+             \PY{n}{out\PYZus{}of\PYZus{}sample\PYZus{}fit}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{target}\PY{p}{)}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{N}\PY{o}{+}\PY{n}{num\PYZus{}hold\PYZus{}out}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{out\PYZus{}of\PYZus{}sample\PYZus{}fit}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{asscalar}\PY{p}{(}\PY{p}{(}\PY{n}{a}\PY{p}{(}\PY{n}{day}\PY{p}{,}\PY{n}{best\PYZus{}mu}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{i}\PY{p}{:}\PY{n}{i}\PY{o}{+}\PY{n}{day}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{Loss\PYZus{}out\PYZus{}of\PYZus{}sample} \PY{o}{+}\PY{o}{=}\PY{p}{(}\PY{n}{Y}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{out\PYZus{}of\PYZus{}sample\PYZus{}fit}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+             \PY{n}{RMSE\PYZus{}out\PYZus{}of\PYZus{}sample}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{Loss\PYZus{}out\PYZus{}of\PYZus{}sample}\PY{o}{/}\PY{n}{num\PYZus{}hold\PYZus{}out}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} predict monthly volatility}
+             \PY{n}{predict}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{asscalar}\PY{p}{(}\PY{p}{(}\PY{n}{a}\PY{p}{(}\PY{n}{day}\PY{p}{,}\PY{n}{best\PYZus{}mu}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{day}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{In\PYZus{}sample\PYZus{}fit}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{out\PYZus{}of\PYZus{}sample\PYZus{}fit}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Y}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{in smaple RMSE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{RMSE\PYZus{}in\PYZus{}sample}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{out of smaple RMSE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{RMSE\PYZus{}out\PYZus{}of\PYZus{}sample}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{predict monthly volatility}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{predict}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{day,mu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{day}\PY{p}{,}\PY{n}{best\PYZus{}mu}\PY{p}{)}
+                 
+\end{Verbatim}
+
+
+    \section{the unit here is annualized
+volatility}\label{the-unit-here-is-annualized-volatility}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{stockprice}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stockdata2.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{stockprice}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Before data clean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{subplots}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{layout}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{18}\PY{p}{)}\PY{p}{)}
+        \PY{n}{stk}\PY{o}{=}\PY{n}{Stock}\PY{p}{(}\PY{n}{stockprice}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/home/mu/Documents/Jupyter workspace/stockdata/data\_clean.py:17: RuntimeWarning: divide by zero encountered in log
+  self.logprice.loc[:,'a':]=np.log(self.price.loc[:,'a':])
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_2_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{First we clean errors that are
+0,1}\label{first-we-clean-errors-that-are-01}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{stk}\PY{o}{.}\PY{n}{clean}\PY{p}{(}\PY{p}{)}
+        \PY{n}{stk}\PY{o}{.}\PY{n}{price}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{After data clean, before deepclean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{subplots}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{layout}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{18}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} array([[<matplotlib.axes.\_subplots.AxesSubplot object at 0x7f2299d26f98>,
+                <matplotlib.axes.\_subplots.AxesSubplot object at 0x7f2299c4da90>],
+               [<matplotlib.axes.\_subplots.AxesSubplot object at 0x7f2299c73ef0>,
+                <matplotlib.axes.\_subplots.AxesSubplot object at 0x7f2295b33390>],
+               [<matplotlib.axes.\_subplots.AxesSubplot object at 0x7f2299c0b7f0>,
+                <matplotlib.axes.\_subplots.AxesSubplot object at 0x7f2299c31c50>]],
+              dtype=object)
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Now we are going to deepclean the data, notably for d, this
+method is data-driven. It differentiate graph c and
+d}\label{now-we-are-going-to-deepclean-the-data-notably-for-d-this-method-is-data-driven.-it-differentiate-graph-c-and-d}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{stk}\PY{o}{.}\PY{n}{deepclean}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{e}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{stk}\PY{o}{.}\PY{n}{price}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{After deepclean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{subplots}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{layout}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{18}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/home/mu/Documents/Jupyter workspace/stockdata/data\_clean.py:37: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+  self.price.loc[:,stk][(np.abs(self.logprice.loc[:,stk]-leftmean.shift(1))>leftstd.shift(1))\&( np.abs(self.logprice.loc[:,stk]-leftmean.shift(-timewindow))>leftstd.shift(-timewindow))]=np.nan
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} array([[<matplotlib.axes.\_subplots.AxesSubplot object at 0x7f2299b90eb8>,
+                <matplotlib.axes.\_subplots.AxesSubplot object at 0x7f2299d93b38>],
+               [<matplotlib.axes.\_subplots.AxesSubplot object at 0x7f2299dc84a8>,
+                <matplotlib.axes.\_subplots.AxesSubplot object at 0x7f2299e40438>],
+               [<matplotlib.axes.\_subplots.AxesSubplot object at 0x7f2299f27898>,
+                <matplotlib.axes.\_subplots.AxesSubplot object at 0x7f2299e97748>]],
+              dtype=object)
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{The price for stock c plummeted to half of its trading price,
+due to a possible stock
+split}\label{the-price-for-stock-c-plummeted-to-half-of-its-trading-price-due-to-a-possible-stock-split}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{stk}\PY{o}{.}\PY{n}{split\PYZus{}adjust}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{stk}\PY{o}{.}\PY{n}{price}\PY{o}{.}\PY{n}{c}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{after adjust split }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/home/mu/Documents/Jupyter workspace/stockdata/data\_clean.py:45: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+  self.price[stk][:split\_time+1]/=2
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f2299d1b710>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{end}\PY{o}{=}\PY{l+m+mi}{98351}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{c+c1}{\PYZsh{}monthly volatility of a: sample frequency: 1 min}
+         \PY{n}{mvol\PYZus{}a1}\PY{o}{=}\PY{n}{stk}\PY{o}{.}\PY{n}{monthly\PYZus{}vol}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{end}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}monthly volatility of a: sample frequency: 5 min}
+         \PY{n}{mvol\PYZus{}a5}\PY{o}{=}\PY{n}{stk}\PY{o}{.}\PY{n}{monthly\PYZus{}vol}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{end}\PY{p}{,}\PY{n}{samplegap}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}monthly volatility of a: sample frequency: 30 min}
+         \PY{n}{mvol\PYZus{}a30}\PY{o}{=}\PY{n}{stk}\PY{o}{.}\PY{n}{monthly\PYZus{}vol}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{end}\PY{p}{,}\PY{n}{samplegap}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}monthly volatility of a: sample frequency: daily}
+         \PY{n}{mvol\PYZus{}a390}\PY{o}{=}\PY{n}{stk}\PY{o}{.}\PY{n}{monthly\PYZus{}vol}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{end}\PY{p}{,}\PY{n}{samplegap}\PY{o}{=}\PY{l+m+mi}{390}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{mvol\PYZus{}a1}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{blue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{mvol\PYZus{}a5}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{red}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{mvol\PYZus{}a30}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{black}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{mvol\PYZus{}a390}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{green}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} loss function for different sampling frequency}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{5 min}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{loss}\PY{p}{(}\PY{n}{mvol\PYZus{}a1}\PY{p}{,}\PY{n}{mvol\PYZus{}a5}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{30 min}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{loss}\PY{p}{(}\PY{n}{mvol\PYZus{}a1}\PY{p}{,}\PY{n}{mvol\PYZus{}a30}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{390 min}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{loss}\PY{p}{(}\PY{n}{mvol\PYZus{}a1}\PY{p}{,}\PY{n}{mvol\PYZus{}a390}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+5 min           loss
+RMSE  0.000052
+MAPE  0.000443
+MAE   0.000039
+30 min           loss
+RMSE  0.000425
+MAPE  0.003964
+MAE   0.000359
+390 min           loss
+RMSE  0.003743
+MAPE  0.034493
+MAE   0.003059
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{The monthly volatility is insensitive to intraday sampling
+frequency}\label{the-monthly-volatility-is-insensitive-to-intraday-sampling-frequency}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{c+c1}{\PYZsh{}daily volatility of a: sample frequency: 1 min}
+         \PY{n}{dvol\PYZus{}a1}\PY{o}{=}\PY{n}{stk}\PY{o}{.}\PY{n}{vol}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{end}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}daily volatility of a: sample frequency: 5 min}
+         \PY{n}{dvol\PYZus{}a5}\PY{o}{=}\PY{n}{stk}\PY{o}{.}\PY{n}{vol}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{end}\PY{p}{,}\PY{n}{samplegap}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}daily volatility of a: sample frequency: 30 min}
+         \PY{n}{dvol\PYZus{}a30}\PY{o}{=}\PY{n}{stk}\PY{o}{.}\PY{n}{vol}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{end}\PY{p}{,}\PY{n}{samplegap}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}dailyvolatility of a: sample frequency: daily}
+         \PY{n}{dvol\PYZus{}a65}\PY{o}{=}\PY{n}{stk}\PY{o}{.}\PY{n}{vol}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{end}\PY{p}{,}\PY{n}{samplegap}\PY{o}{=}\PY{l+m+mi}{65}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{dvol\PYZus{}a1}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{blue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{dvol\PYZus{}a5}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{red}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{dvol\PYZus{}a30}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{black}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{dvol\PYZus{}a65}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{green}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} loss function for different sampling frequency}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{5 min}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{loss}\PY{p}{(}\PY{n}{dvol\PYZus{}a1}\PY{p}{,}\PY{n}{dvol\PYZus{}a5}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{30 min}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{loss}\PY{p}{(}\PY{n}{dvol\PYZus{}a1}\PY{p}{,}\PY{n}{dvol\PYZus{}a30}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{65 min}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{loss}\PY{p}{(}\PY{n}{dvol\PYZus{}a1}\PY{p}{,}\PY{n}{dvol\PYZus{}a65}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+5 min           loss
+RMSE  0.001218
+MAPE  0.013267
+MAE   0.000902
+30 min           loss
+RMSE  0.007592
+MAPE  0.081195
+MAE   0.005671
+65 min           loss
+RMSE  0.015598
+MAPE  0.153927
+MAE   0.011444
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{For daily volatility, 5min and 30 min sampling gap are almost
+as good as 1min sampling gap, so we will be using 30 min sampling
+gap}\label{for-daily-volatility-5min-and-30-min-sampling-gap-are-almost-as-good-as-1min-sampling-gap-so-we-will-be-using-30-min-sampling-gap}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{c+c1}{\PYZsh{} other measures of volatility:}
+         \PY{c+c1}{\PYZsh{}daily realized volatility}
+         \PY{n}{drealized\PYZus{}vol\PYZus{}a}\PY{o}{=}\PY{n}{stk}\PY{o}{.}\PY{n}{rlz\PYZus{}vol}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{a}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{end}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{drealized\PYZus{}vol\PYZus{}a}\PY{p}{)}
+         \PY{n}{loss}\PY{p}{(}\PY{n}{dvol\PYZus{}a1}\PY{p}{,}\PY{n}{drealized\PYZus{}vol\PYZus{}a}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:}           loss
+         RMSE  0.180483
+         MAPE  2.322245
+         MAE   0.151777
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{c+c1}{\PYZsh{}daily absolute log return}
+         \PY{n}{dabs\PYZus{}logrtn\PYZus{}a}\PY{o}{=}\PY{n}{stk}\PY{o}{.}\PY{n}{abs\PYZus{}logrtn}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{end}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{dabs\PYZus{}logrtn\PYZus{}a}\PY{p}{)}
+         \PY{n}{loss}\PY{p}{(}\PY{n}{dvol\PYZus{}a1}\PY{p}{,}\PY{n}{dabs\PYZus{}logrtn\PYZus{}a}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}38}]:}           loss
+         RMSE  0.081232
+         MAPE  1.167330
+         MAE   0.066652
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{daily absolute return seems better than daily realized
+volatility}\label{daily-absolute-return-seems-better-than-daily-realized-volatility}
+
+    \section{we will use EWMA method as our model. The function fit() will
+perform gradient descent with momentum method to minimize RMSE. (Here we
+use mean squared
+loss)}\label{we-will-use-ewma-method-as-our-model.-the-function-fit-will-perform-gradient-descent-with-momentum-method-to-minimize-rmse.-here-we-use-mean-squared-loss}
+
+    \section{1) use realized\_volatility to predict monthly
+volatility}\label{use-realized_volatility-to-predict-monthly-volatility}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{c+c1}{\PYZsh{} we use 150 days as sample, and hold out the rest to test the performance of the model}
+         \PY{n}{fit}\PY{p}{(}\PY{n}{drealized\PYZus{}vol\PYZus{}a}\PY{p}{,}\PY{n}{mvol\PYZus{}a1}\PY{p}{,}\PY{n}{hold\PYZus{}out}\PY{o}{=}\PY{l+m+mi}{140}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+in smaple RMSE 0.16940031292397337
+out of smaple RMSE 0.19405576315197282
+predict monthly volatility 0.14904367231808083
+day,mu 62 0.8446665615915178
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{2) use absolute\_logreturn to predict monthly
+volatility}\label{use-absolute_logreturn-to-predict-monthly-volatility}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{c+c1}{\PYZsh{} we use 150 days as sample, and hold out the rest to test the performance of the model}
+         \PY{n}{fit}\PY{p}{(}\PY{n}{dabs\PYZus{}logrtn\PYZus{}a}\PY{p}{,}\PY{n}{mvol\PYZus{}a1}\PY{p}{,}\PY{n}{hold\PYZus{}out}\PY{o}{=}\PY{l+m+mi}{150}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+in smaple RMSE 0.07558017692750092
+out of smaple RMSE 0.07356322680524717
+predict monthly volatility 0.0985551521074357
+day,mu 61 0.8850206495485602
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{3) use daily volatility to predict monthly
+volatility}\label{use-daily-volatility-to-predict-monthly-volatility}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{c+c1}{\PYZsh{} we use 150 days as sample, and hold out the rest to test the performance of the model}
+         \PY{n}{fit}\PY{p}{(}\PY{n}{dvol\PYZus{}a30}\PY{p}{,}\PY{n}{mvol\PYZus{}a1}\PY{p}{,}\PY{n}{hold\PYZus{}out}\PY{o}{=}\PY{l+m+mi}{150}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+in smaple RMSE 0.04364677931390372
+out of smaple RMSE 0.033670706261525754
+predict monthly volatility 0.08187512745120118
+day,mu 60 0.9468506253826746
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{a) we predict monthly volatility 0.082, with RMSE
+0.034}\label{a-we-predict-monthly-volatility-0.082-with-rmse-0.034}
+
+    \section{It seems that daily volatility is a better predictor than the
+other two under the current model. Here we used 30 min sampling gap for
+daily
+volatility}\label{it-seems-that-daily-volatility-is-a-better-predictor-than-the-other-two-under-the-current-model.-here-we-used-30-min-sampling-gap-for-daily-volatility}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}79}]:} \PY{c+c1}{\PYZsh{} we calculate the monthly volatility and daily volatility}
+         \PY{n}{mvol\PYZus{}b}\PY{o}{=}\PY{n}{stk}\PY{o}{.}\PY{n}{monthly\PYZus{}vol}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{end}\PY{p}{)}
+         \PY{n}{mvol\PYZus{}c}\PY{o}{=}\PY{n}{stk}\PY{o}{.}\PY{n}{monthly\PYZus{}vol}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{end}\PY{p}{)}
+         \PY{n}{mvol\PYZus{}d}\PY{o}{=}\PY{n}{stk}\PY{o}{.}\PY{n}{monthly\PYZus{}vol}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{end}\PY{p}{)}
+         \PY{n}{mvol\PYZus{}e}\PY{o}{=}\PY{n}{stk}\PY{o}{.}\PY{n}{monthly\PYZus{}vol}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{e}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{end}\PY{p}{)}
+         \PY{n}{mvol\PYZus{}f}\PY{o}{=}\PY{n}{stk}\PY{o}{.}\PY{n}{monthly\PYZus{}vol}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{end}\PY{p}{)}
+         \PY{n}{dvol\PYZus{}b30}\PY{o}{=}\PY{n}{stk}\PY{o}{.}\PY{n}{vol}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{end}\PY{p}{,}\PY{n}{samplegap}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}
+         \PY{n}{dvol\PYZus{}c30}\PY{o}{=}\PY{n}{stk}\PY{o}{.}\PY{n}{vol}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{end}\PY{p}{,}\PY{n}{samplegap}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}
+         \PY{n}{dvol\PYZus{}d30}\PY{o}{=}\PY{n}{stk}\PY{o}{.}\PY{n}{vol}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{end}\PY{p}{,}\PY{n}{samplegap}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}
+         \PY{n}{dvol\PYZus{}e30}\PY{o}{=}\PY{n}{stk}\PY{o}{.}\PY{n}{vol}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{e}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{end}\PY{p}{,}\PY{n}{samplegap}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}
+         \PY{n}{dvol\PYZus{}f30}\PY{o}{=}\PY{n}{stk}\PY{o}{.}\PY{n}{vol}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{end}\PY{p}{,}\PY{n}{samplegap}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{c+c1}{\PYZsh{} we use 150 days as sample, and hold out the rest to test the performance of the model}
+         \PY{n}{fit}\PY{p}{(}\PY{n}{dvol\PYZus{}b30}\PY{p}{,}\PY{n}{mvol\PYZus{}b}\PY{p}{,}\PY{n}{hold\PYZus{}out}\PY{o}{=}\PY{l+m+mi}{150}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+in smaple RMSE 0.12893868993164082
+out of smaple RMSE 0.08125746087180549
+predict monthly volatility 0.23119116023069308
+day,mu 53 0.9334693024601418
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{b) we predict monthly volatility 0.231, with RMSE
+0.081}\label{b-we-predict-monthly-volatility-0.231-with-rmse-0.081}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}80}]:} \PY{c+c1}{\PYZsh{} we use 150 days as sample, and hold out the rest to test the performance of the model}
+         \PY{n}{fit}\PY{p}{(}\PY{n}{dvol\PYZus{}c30}\PY{p}{,}\PY{n}{mvol\PYZus{}c}\PY{p}{,}\PY{n}{hold\PYZus{}out}\PY{o}{=}\PY{l+m+mi}{150}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+in smaple RMSE 0.3595219988835522
+out of smaple RMSE 0.07333612592201029
+predict monthly volatility 0.12631894013627545
+day,mu 49 0.9528396764529566
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{c) we predict monthly volatility 0.126, with RMSE
+0.073}\label{c-we-predict-monthly-volatility-0.126-with-rmse-0.073}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}81}]:} \PY{c+c1}{\PYZsh{} we use 150 days as sample, and hold out the rest to test the performance of the model}
+         \PY{n}{fit}\PY{p}{(}\PY{n}{dvol\PYZus{}d30}\PY{p}{,}\PY{n}{mvol\PYZus{}d}\PY{p}{,}\PY{n}{hold\PYZus{}out}\PY{o}{=}\PY{l+m+mi}{150}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+in smaple RMSE 0.04868761499491874
+out of smaple RMSE 0.050091349136421645
+predict monthly volatility 0.1278899674265727
+day,mu 59 0.9668806923461123
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_31_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{d) we predict monthly volatility 0.128, withRMSE
+0.050}\label{d-we-predict-monthly-volatility-0.128-withrmse-0.050}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}85}]:} \PY{c+c1}{\PYZsh{} we use 150 days as sample, and hold out the rest to test the performance of the model}
+         \PY{n}{fit}\PY{p}{(}\PY{n}{dvol\PYZus{}e30}\PY{p}{,}\PY{n}{mvol\PYZus{}e}\PY{p}{,}\PY{n}{hold\PYZus{}out}\PY{o}{=}\PY{l+m+mi}{150}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+in smaple RMSE 0.06490326200360037
+out of smaple RMSE 0.04091032439886848
+predict monthly volatility 0.10423141829381452
+day,mu 53 0.8639359381562307
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{e) we predict monthly volatility 0.104, with RMSE
+0.041}\label{e-we-predict-monthly-volatility-0.104-with-rmse-0.041}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}84}]:} \PY{c+c1}{\PYZsh{} we use 150 days as sample, and hold out the rest to test the performance of the model}
+         \PY{n}{fit}\PY{p}{(}\PY{n}{dvol\PYZus{}f30}\PY{p}{,}\PY{n}{mvol\PYZus{}f}\PY{p}{,}\PY{n}{hold\PYZus{}out}\PY{o}{=}\PY{l+m+mi}{150}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+in smaple RMSE 0.07407373847315009
+out of smaple RMSE 0.01496765916713957
+predict monthly volatility 0.1331179979217845
+day,mu 58 0.9383442984158299
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_35_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{f) we predict monthly volatility 0.133, with RMSE
+0.015}\label{f-we-predict-monthly-volatility-0.133-with-rmse-0.015}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
